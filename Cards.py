@@ -52,14 +52,14 @@ class Hand:
     def print_size(self):
         print(self.size)
 
-    def draw(self,n,deck): #draw a card from the deck. if no cards can be drawn, return None
+    def draw(self,deck,n): #draw a card from the deck. if no cards can be drawn, return None
         drawn=deck.draw(n)
         l=len(drawn)
         if l == 0:
             return None
         else:
             self.size += l
-            self.hand+=drawn
+            self.hand += drawn
 
     def print_hand(self):
         for i in range(self.size):
