@@ -15,7 +15,7 @@ class PlayingCard:  #Simulates cards from a deck of normal cards
         self.num = num
         self.opened = opened
         self.bj_num = min(self.num, 10) #Converts face cards into tens
-
+        self.img = ""
     def randomize_card(self): #Randomizes a single card
 
         self.suit = choice(['spades', 'hearts', 'clubs', 'diamonds'])
@@ -29,18 +29,20 @@ class PlayingCard:  #Simulates cards from a deck of normal cards
             self.opened = True
 
     def print_card(self): #Prints the identity of the card to the terminal
-
-        if(self.num == 1):
-            print("Ace ")
-        elif(self.num == 11):
-            print("Jack ")
-        elif(self.num == 12):
-            print("Queen ")
-        elif(self.num == 13):
-            print("King ")
+        if not self.opened:
+            print("Hidden")
         else:
-            print("{0}".format(self.num))
-        print("of {0}".format(self.suit))
+            if(self.num == 1):
+                print("Ace ")
+            elif(self.num == 11):
+                print("Jack ")
+            elif(self.num == 12):
+                print("Queen ")
+            elif(self.num == 13):
+                print("King ")
+            else:
+                print("{0}".format(self.num))
+            print("of {0}".format(self.suit))
 
 class Hand:
 

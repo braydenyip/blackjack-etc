@@ -1,5 +1,8 @@
 from Cards import *
 # from random import *
+import tkinter as tk
+
+class game_win:
 
 def main():
     #initialize hands and deck
@@ -14,6 +17,9 @@ def main():
 
     dealer.print_hand()
 
+    win=tk.Tk()
+
+    win.mainloop()
     if is21(player):
         print("Blackjack!")
         return 0
