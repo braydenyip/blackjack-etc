@@ -5,17 +5,17 @@
 # The cards are linked list elements, in order to create a deck.
 # opened is a Boolean which represents if the card is face up or face down. True for face up
 
-from random import randrange, shuffle, choice
+from random import *
 
-class PlayingCard:  #Simulates cards from a deck of normal cards
+class PlayingCard:
 
-    def __init__(self,suit='BlkJoker',num=0,opened=True): #Initializing without specifying suit or number gives a joker.
-
+     def __init__(self,suit='hearts',num=1,opened=True):
         self.suit = suit
         self.num = num
         self.opened = opened
-        self.bj_num = min(self.num, 10) #Converts face cards into tens
-        self.img = ""
+        self.img_path = "assets/game-assets/AH.png"
+        update_img_path(self)
+
     def randomize_card(self): #Randomizes a single card
 
         self.suit = choice(['spades', 'hearts', 'clubs', 'diamonds'])
@@ -24,7 +24,8 @@ class PlayingCard:  #Simulates cards from a deck of normal cards
     def flip(self): #Changes the visual side shown
 
         if self.opened:
-            self.opened = False
+            self.opened = False #backside
+
         else:
             self.opened = True
 
@@ -43,6 +44,28 @@ class PlayingCard:  #Simulates cards from a deck of normal cards
             else:
                 print("{0}".format(self.num))
             print("of {0}".format(self.suit))
+
+    def update_img_path(self):
+        self.img_path = "assets/game-assets/"
+        if (self.num == 1):
+            self.img_path += "A"
+        elif (self.num == 11):
+            self.img_path += "J"
+        elif (self.num == 12):
+            self.img_path += "Q"
+        elif (self.num == 13):
+            self.img_path += "K"
+        else:
+            self.img_path += str(self.num)
+
+        if (self.suit == 'spades'):
+            self.img_path += "S"
+        elif (self.suit == 'clubs'):
+            self.img_path += "C"
+        elif (self.suit == 'diamonds'):
+            self.img_path += "D"
+        else:
+            self.img_path += "H"
 
 class Hand:
 
@@ -72,11 +95,8 @@ class Hand:
 
 class Deck:
 
-    def __init__(self,jokers=False): #Initializing produces a new shuffled deck
+    def __init__(self): #Initializing produces a new shuffled deck
         self.deck=[]
-        if jokers:
-            self.deck.append(PlayingCard('BlkJoker',0))
-            self.deck.append(PlayingCard('RedJoker',0))
         for suit in ['spades', 'hearts', 'clubs', 'diamonds']:
             for n in range(1,14):
                 self.deck.append(PlayingCard(suit,n))
