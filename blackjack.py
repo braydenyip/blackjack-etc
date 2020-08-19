@@ -33,10 +33,12 @@ def main():
                 print("21!")
         else:
             stand = True
+    player.print_hand()
     #Flip over the hidden card
     PlayingCard.flip(dealer.hand[1])
     if bust:
         print("You have gone bust. You lose!")
+        return 0
     while get_score(dealer) < 17:
         dealer.draw(d,1)
         dealer.print_hand()
@@ -54,11 +56,20 @@ def main():
 
 def get_score(h): #returns the blackjack score of a hand
     score = 0
+    b_score = 0
+    a_score = 0
     for card in h.hand:
-        if card.num == 1 and score < 11:
-            score += 11
-        elif card.num == 10 and score == 11 and h.size == 2:
-            score = 21
+        if (card.num == 1): #Ace logic
+            a_score = score + 1
+            b_score = score + 11
+            if b_score > 21 or a_score > 21: #if adding 11 busts or if either bust, take the lower a_score
+                score = a_score
+            elif b_score == 21: #if either produce a 21, default to that one
+                score = b_score
+            elif a_score == 21:
+                score = a_score
+            else: #if adding 11 does not bust nor produce a blackjack
+                score = b_score
         else:
             score += min(card.num,10)
     return score
